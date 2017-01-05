@@ -104,5 +104,15 @@ class OptimalPolicy(Policy):
         return np.max(value)
 
 
+class RandomPolicy(Policy):
+    def cal_new_value(self, i, j, grids):
+        value = 0
+        for direction in range(4):
+            new_pos = grids.world[i][j].action.moves[direction]
+            value += 0.25 * (grids.world[i][j].reward.moves[direction] + self.discount * grids.value[
+                new_pos[0], new_pos[1]])
+        return value
+
+
 if __name__ == '__main__':
     pass
