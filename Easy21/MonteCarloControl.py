@@ -15,14 +15,14 @@ class MonteCarloControl:
         self.N0 = 100
         self.Ns = np.zeros((10, 21))
 
-    def solve(self, iters):
+    def solve(self, iters, n0=100):
         for _ in range(iters):
 
             # Generate an episode
             history = []
             s = Easy21.new_game()
             while not s == Easy21.TERMINAL:
-                epsilon = self.N0 / (self.N0 + self.Ns[s[0] - 1, s[1] - 1])
+                epsilon = n0 / (n0 + self.Ns[s[0] - 1, s[1] - 1])
                 self.Ns[s[0] - 1, s[1] - 1] += 1
                 if random.random() < epsilon:
                     a = random.randint(0, 1)
@@ -50,7 +50,7 @@ class MonteCarloControl:
 
 if __name__ == '__main__':
     mc = MonteCarloControl()
-    mc.solve(10000000)
+    mc.solve(10000000, 500)
     mc.optimal_policy()
     with open("value.obj", 'wb') as output:
         pickle.dump(mc.value, output)
