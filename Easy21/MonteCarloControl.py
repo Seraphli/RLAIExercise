@@ -1,9 +1,7 @@
 import Easy21
 import numpy as np
 import random
-import matplotlib.pyplot as plt
-from matplotlib import cm
-from mpl_toolkits.mplot3d import Axes3D
+from Utility import Plot3D
 import pickle
 
 
@@ -12,7 +10,6 @@ class MonteCarloControl:
         self.value = np.zeros((10, 21))
         self.q = np.zeros((10, 21, 2))
         self.c = np.zeros((10, 21, 2))
-        self.N0 = 100
         self.Ns = np.zeros((10, 21))
 
     def solve(self, iters, n0=100):
@@ -63,13 +60,4 @@ if __name__ == '__main__':
         return mc.value[x, y]
 
 
-    fig = plt.figure()
-    ax = fig.add_subplot(111, projection='3d')
-
-    X = np.arange(0, 10, 1)
-    Y = np.arange(0, 21, 1)
-    X, Y = np.meshgrid(X, Y)
-
-    Z = get_stat_val(X, Y)
-    surf = ax.plot_surface(X, Y, Z, rstride=1, cstride=1, cmap=cm.coolwarm, linewidth=0, antialiased=False)
-    plt.show()
+    Plot3D(get_stat_val)
