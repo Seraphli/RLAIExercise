@@ -13,29 +13,31 @@ class Sarsa:
         c = np.zeros((10, 21, 2))
         self.Ns = np.zeros((10, 21))
         self.n0 = n0
+
         if need_list:
             mse = []
         else:
             mse = 0
         for _ in range(iters):
+            E = np.zeros((10, 21, 2))
             # Generate an episode
             s = Easy21.new_game()
             a = self.policy(s)
             while not s == Easy21.TERMINAL:
                 next_s, r = Easy21.step(s, Easy21.ACTION[a])
+
                 if not next_s == Easy21.TERMINAL:
                     next_a = self.policy(next_s)
                     # Update Q value
-                    c[s[0] - 1, s[1] - 1, a] += 1
-                    alpha = 1 / c[s[0] - 1, s[1] - 1, a]
-                    self.q[s[0] - 1, s[1] - 1, a] += alpha * (
-                        r + n_lambda * self.q[next_s[0] - 1, next_s[1] - 1, next_a] - self.q[s[0] - 1, s[1] - 1, a])
+                    delta = r + self.q[next_s[0] - 1, next_s[1] - 1, next_a] - self.q[s[0] - 1, s[1] - 1, a]
                 else:
                     next_a = -1
-                    c[s[0] - 1, s[1] - 1, a] += 1
-                    alpha = 1 / c[s[0] - 1, s[1] - 1, a]
-                    self.q[s[0] - 1, s[1] - 1, a] += alpha * (r - self.q[s[0] - 1, s[1] - 1, a])
-
+                    delta = r - self.q[s[0] - 1, s[1] - 1, a]
+                E[s[0] - 1, s[1] - 1, a] += 1
+                c[s[0] - 1, s[1] - 1, a] += 1
+                alpha = 1 / c[s[0] - 1, s[1] - 1, a]
+                self.q += alpha * delta * E
+                E = n_lambda * E
                 s = next_s
                 a = next_a
             if need_list:
@@ -66,3 +68,9 @@ if __name__ == '__main__':
     for n_lambda in np.arange(0, 1.1, 0.1):
         lambda_mse.append(sarsa.solve(n_lambda, n0=500))
     Plot2D(np.arange(0, 1.1, 0.1), lambda_mse)
+
+    mse = sarsa.solve(0, n0=500, need_list=True)
+    Plot2D(range(1000), mse)
+
+    mse = sarsa.solve(1, n0=500, need_list=True)
+    Plot2D(range(1000), mse)
