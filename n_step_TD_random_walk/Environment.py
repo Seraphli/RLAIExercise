@@ -109,4 +109,4 @@ class n_step_TD(object):
 if __name__ == '__main__':
     env = RandomWalk(19)
     td = n_step_TD(env)
-    td.learn(10, 4, 0.5)
+    print(td.learn(10, 4, 0.5))
