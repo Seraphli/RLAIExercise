@@ -37,7 +37,7 @@
         </section>
         <section>
           <video>
-            <source data-src="video/General_Game_Playing_with_Schema_Networks.mp4" type="video/mp4" />
+            <source data-src="video/20170620/General_Game_Playing_with_Schema_Networks.mp4" type="video/mp4" />
           </video>
         </section>
         <section>
@@ -53,8 +53,27 @@
           <section>
             <p>A3C作为目前最先进的算法</p>
             <p class="fragment">虽然应对Breakout有很好的效果</p>
-            <p class="fragment">但对于Breakout的一些<span class="fragment highlight-current-blue">变种</span></p>
+            <p class="fragment">但对于Breakout的一些<span class="fragment highlight-blue">变种</span></p>
             <p class="fragment"><span class="fragment highlight-red">不能</span>直接迁移</p>
+          </section>
+          <section>
+            <p>所以他们提出一种网络结构</p>
+            <p><span class="fragment fade-in"><span class="fragment highlight-green">图式网络(Schema Network)</span></span></p>
+            <span class="fragment fade-in"><p class="fragment grow">依赖于状态输入</p></span>
+            <span class="fragment fade-in"><p class="fragment shrink">而非原生图像</p></span>
+          </section>
+        </section>
+        <section>
+          <section>怎么实现?</section>
+          <section>
+            <img data-src="image/20170620/architecture_sn.png">
+            <p>图式网络的架构</p>
+            <ol>
+              <li>实体属性的变化</li>
+              <li>未来的回报</li>
+              <li>实体k属性的自我转换</li>
+              <li>图式网络一部分的示例</li>
+            </ol>
           </section>
         </section>
         <section>Fin</section>
@@ -72,6 +91,7 @@
 				dependencies: [
 					{ src: 'plugin/markdown/marked.js' },
 					{ src: 'plugin/markdown/markdown.js' },
+          { src: 'plugin/zoom-js/zoom.js', async: true },
 					{ src: 'plugin/notes/notes.js', async: true },
 					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
 				]
