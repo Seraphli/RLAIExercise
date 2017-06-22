@@ -26,14 +26,19 @@
 			<div class="slides">
 				<section>技术分享</section>
 				<section>Schema Networks: Zero-shot Transfer with a Generative Causal Model of Intuitive Physics</section>
-        <section data-markdown>
-          <textarea data-template>
+        <section>
+          <section data-markdown>
             这篇文章主要想要解决的问题是
 
             1. 从以前学习的场景迁移到新的类似场景
             2. 从因果(cause and effect)的角度来推理问题
-
-          </textarea>
+          </section>
+          <section>
+            A3C 智能体会对一个特定策略进行「过拟合」（overfit），去开发训练过的游戏版本中的特定数据。但是它没有对游戏的动态变化和规则进行概念性的理解。
+          </section>
+          <section>
+            从因果（cause and effect）的角度来理解这个世界是人类智力的重要标志之一。这种能力可以让我们通过对我们已有的知识信息进行「迁移」（transferring），从而快速地理解新的情境，比如一个新的电子游戏。
+          </section>
         </section>
         <section>
           <video>
@@ -86,10 +91,35 @@
         </section>
         <section>
           <section>实现细节</section>
-          <section data-markdown>
+          <section>
+            <img data-src="image/20170620/algo_1_1.png"><br>
             1. 找到一个输入特征, 使用线性规划去求解
+          </section>
+          <section>
+            <img data-src="image/20170620/algo_1_2.png"><br>
             2. 削减schema, 保持精确度和召回率
-            3. 二值化schema
+          </section>
+          <section>
+            <img data-src="image/20170620/algo_1_3.png"><br>
+            3. 二值化schema<br>
+            得到预测之后,使用MCTS来控制Agent
+          </section>
+        </section>
+        <section>
+          <section>算法的优缺点</section>
+          <section data-markdown>
+            优点:
+            1. 能够推理物理模型,根据前一个状态推理下一个的状态的转移
+            2. 模型可解释性强
+            3. 可以适应环境的变种
+          </section>
+          <section data-markdown>
+            缺点:
+            1. 模型不算是主流模型
+            2. 使用的特征是需要经过提取的(论文中都是自己建立的环境)
+            3. 使用线性规划
+            4. 有随机性的环境对于模型来说是难解的(算法中保证精确度的问题)
+            5. 并不是真的Zero-shot,也需要一定的训练,只不过减少了次数
           </section>
         </section>
         <section>Fin</section>
